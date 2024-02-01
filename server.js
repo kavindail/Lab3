@@ -1,7 +1,7 @@
 const url = require('url');
 const mo = require('./modules/utils')
 const httpInstance = require('http');
-const portNumber = 8080;
+const portNumber = process.env.PORT || 8080;
 
 const httpServer = httpInstance.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true); 
