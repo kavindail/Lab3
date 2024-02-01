@@ -1,14 +1,20 @@
-const { URLSearchParams } = require('url');
+const url = require('url');
+const mo = require('./modules/utils')
+const httpInstance = require('http');
+const portNumber = 8080;
 
-const mo = require('../modules/utils');
-
-module.exports = (req, res) => {
-    const URLparams = new URLSearchParams(req.url.replace('/', ''));
-    const name = URLparams.get('name');
+const httpServer = httpInstance.createServer((req, res) => {
+    const parsedUrl = url.parse(req.url, true); 
+    const queryString = parsedUrl.query; 
+    const name = queryString.name;
 
     res.setHeader('Content-Type', 'text/html');
-    res.write('Response from server\n');
-    res.write(`response was ${name}\n`);
-    res.write(mo.getInfo());
+    res.write(mo.getDate(name));
+    res.statusCode = 200;
+
     res.end();
-};
+});
+
+httpServer.listen(portNumber, () => {
+    console.log('Server is listening on port ' + portNumber);
+});

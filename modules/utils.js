@@ -1,5 +1,9 @@
-const date = new Date().toDateString();
+const createMessage = require('../lang/messages');
 
-exports.getInfo = function(){
-  return '<b>Hello world</b>';  
+
+
+exports.getDate = function(name){
+const date = new Date().toDateString();
+const time = new Date().toLocaleTimeString();
+return `<p style="color: blue;">${createMessage(name)}  ${date} ${time}</p>`;  
 }
